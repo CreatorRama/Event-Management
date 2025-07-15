@@ -1,4 +1,4 @@
-const pool = import('../config/db.js')
+import  {pool} from import('../config/db.js')
 
 class Event {
   static async create(eventData) {
