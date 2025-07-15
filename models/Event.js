@@ -1,4 +1,4 @@
-const pool = require('../database/db');
+const pool = import('../config/db.js')
 
 class Event {
   static async create(eventData) {
@@ -76,4 +76,4 @@ class Event {
   }
 }
 
-module.exports = Event;
+export default Event;
