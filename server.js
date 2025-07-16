@@ -2,9 +2,7 @@ import  express from require('express');
 import  cors from require('cors');
 import  helmet from require('helmet');
 import  rateLimit from require('express-rate-limit');
-import dotenv from 'dotenv'
 
-dotenv.config();
 
 
 const  app = express();
