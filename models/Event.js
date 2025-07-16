@@ -1,15 +1,15 @@
-import  {pool} from '../config/db.js'
+import { pool } from '../config/db.js'
 
 class Event {
   static async create(eventData) {
     const { title, date_time, location, capacity } = eventData;
-    
+
     const query = `
       INSERT INTO events (title, date_time, location, capacity)
       VALUES ($1, $2, $3, $4)
       RETURNING *
     `;
-    
+
     const result = await pool.query(query, [title, date_time, location, capacity]);
     return result.rows[0];
   }
@@ -35,25 +35,34 @@ class Event {
       WHERE e.id = $1
       GROUP BY e.id
     `;
-    
+
     const result = await pool.query(query, [id]);
     return result.rows[0];
   }
 
   static async getUpcomingEvents() {
     const query = `
-      SELECT e.*, 
-             COUNT(er.id) as registration_count
-      FROM events e
-      LEFT JOIN event_registrations er ON e.id = er.event_id
-      WHERE e.date_time > NOW()
-      GROUP BY e.id
-      ORDER BY e.date_time ASC, e.location ASC
-    `;
-    
+    SELECT e.*, 
+           COUNT(er.id) as registration_count
+    FROM events e
+    LEFT JOIN event_registrations er ON e.id = er.event_id
+    WHERE e.date_time > NOW()
+    GROUP BY e.id
+  `;
+
     const result = await pool.query(query);
-    return result.rows;
+
+   
+    return result.rows.sort((a, b) => {
+      
+      const dateComparison = new Date(a.date_time) - new Date(b.date_time);
+      if (dateComparison !== 0) return dateComparison;
+
+      
+      return a.location.localeCompare(b.location);
+    });
   }
+
 
   static async getEventStats(eventId) {
     const query = `
@@ -70,7 +79,7 @@ class Event {
       WHERE e.id = $1
       GROUP BY e.id, e.capacity
     `;
-    
+
     const result = await pool.query(query, [eventId]);
     return result.rows[0];
   }
