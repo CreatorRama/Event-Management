@@ -1,12 +1,16 @@
-import  express from require('express');
-import  cors from require('cors');
-import  helmet from require('helmet');
-import  rateLimit from require('express-rate-limit');
+import  express from 'express'
+import  cors from 'cors'
+import  helmet from 'helmet'
+import  rateLimit from 'express-rate-limit'
+import userRoutes from './routes/users.js'
+import eventRoutes from './routes/Events.js'
+import errorHandler from './middleware/errorHandler.js'
+import dotenv from 'dotenv'
 
-
+dotenv.config();
 
 const  app = express();
-const   PORT = process.env.PORT || 3000;
+const   PORT = process.env.PORT || 5000;
 
 
 app.use(helmet());

@@ -1,4 +1,4 @@
-import  {pool} from import('../config/db.js')
+import  {pool} from '../config/db.js'
 
 class Registration {
   static async create(userId, eventId) {
