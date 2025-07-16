@@ -55,7 +55,7 @@ A robust REST API for managing events and user registrations built with Node.js,
 
 5. **Set up database schema**
    ```bash
-   npm run setup
+   npm run db-seed
    ```
 
 6. **Start the server**
@@ -498,7 +498,7 @@ curl -X DELETE http://localhost:5000/api/events/{event-id}/register \
 - **Real-time Statistics**: Accurate capacity and usage calculations
 - **Data Integrity**: Foreign key constraints maintain referential integrity
 
-## Deployment Considerations
+
 
 ### Environment Variables
 ```env
